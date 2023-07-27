@@ -22,15 +22,9 @@ def tela_login():
         resultado = verifica_login(usuario, senha)
         if resultado:
             st.success("Login realizado com sucesso!")
-            # Create a link to open in a new tab using JavaScript
-            link = 'https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/'
-            js = f'''
-            <script>
-            window.open("{link}", "_blank");
-            setTimeout(() => window.close(), 1000);
-            </script>
-            '''
-            st.markdown(js, unsafe_allow_html=True)
+            # Provide a message to instruct the user to click the link and close the tab manually
+            st.write("Acesso ao sistema:")
+            st.markdown('[Acesso ao sistema](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)', unsafe_allow_html=True)
         else:
             st.error("Credenciais inválidas!")
 
