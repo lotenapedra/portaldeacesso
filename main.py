@@ -34,4 +34,5 @@ tela_login()
 if hasattr(st.session_state, 'is_logged_in') and st.session_state.is_logged_in:
     st.title("Acesso ao sistema")
     st.write("Clique no link abaixo para acessar o sistema:")
-    st.markdown("[Link](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)")
+    st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/" target="_blank">Link</a>', unsafe_allow_html=True)
+
