@@ -7,7 +7,7 @@ import pandas as pd
 # Side bar menu
 
 
-menu_option = st.sidebar.radio("Menu", ["Requisicão de Frete", "Requisição x Entradas"])
+menu_option = st.sidebar.radio("Menu", ["Requisição de Frete", "Requisição x Entradas"])
 
 
 if menu_option == "Requisição de Frete":
