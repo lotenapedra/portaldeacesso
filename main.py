@@ -24,7 +24,7 @@ def tela_login():
         if resultado:
             st.success("Login realizado com sucesso!")
             # Criando um link para a página desejada após o login
-            st.markdown('<a href="https://3dwarehouse.sketchup.com/search/?q=churrasqueira" target="_self">Clique aqui para acessar a página desejada</a>', unsafe_allow_html=True)
+            st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/">Acesso ao sistema</a>', unsafe_allow_html=True)
         else:
             st.error("Credenciais inválidas!")
 
