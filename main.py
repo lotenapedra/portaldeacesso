@@ -22,10 +22,14 @@ def tela_login():
         resultado = verifica_login(usuario, senha)
         if resultado:
             st.success("Login realizado com sucesso!")
-            # Criando um link para a página desejada após o login
-            st.write("Acesso ao sistema: [Link](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)")
+            # Define uma variável de sessão para indicar que o usuário está logado
+            st.session_state.is_logged_in = True
         else:
             st.error("Credenciais inválidas!")
 
 # Executa a tela de login
 tela_login()
+
+# Mostra o link para o sistema após o login bem-sucedido
+if hasattr(st.session_state, 'is_logged_in') and st.session_state.is_logged_in:
+    st.write("Acesso ao sistema: [Link](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)")
