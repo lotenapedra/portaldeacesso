@@ -22,14 +22,10 @@ def tela_login():
         resultado = verifica_login(usuario, senha)
         if resultado:
             st.success("Login realizado com sucesso!")
-            # Utilize o "components.html" para criar um elemento HTML com redirecionamento
-            st.components.v1.html(
-                """
-                <script>
-                    window.location.href = "https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/";
-                </script>
-                """
-            )
+            # Utilize o "empty" markdown para limpar o conteúdo atual da página
+            st.markdown("", unsafe_allow_html=True)
+            # Cria o link para a página desejada após o login
+            st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/" target="_self">Acesso ao sistema</a>', unsafe_allow_html=True)
         else:
             st.error("Credenciais inválidas!")
 
