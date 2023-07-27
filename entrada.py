@@ -8,33 +8,6 @@ with open("entrada.css", encoding='utf-8') as f:
 
 # ... (Rest of your code remains the same)
 
-# Obtém a lista de estados
-estados = []
-arquivo_csv = 'dados.csv'
-
-with open(arquivo_csv, 'r', newline='', encoding='utf-8') as file:
-    reader = csv.DictReader(file, delimiter=';')
-    for row in reader:
-        if 'UF' in row:
-            estado = row['UF']
-            if estado not in estados:
-                estados.append(estado)
-
-# Função para obter os municípios de um estado específico
-def obter_municipios(estado):
-    municipios = []
-
-    # Caminho para o arquivo CSV local
-    arquivo_csv = 'dados.csv'
-
-    with open(arquivo_csv, 'r', newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file, delimiter=';')
-        for row in reader:
-            if 'UF' in row and row['UF'] == estado:
-                municipios.append(row['Município'])
-
-    return municipios
-
 # Wrap your form elements with st.form context manager
 with st.form("entrada_form"):
     # Add form validation for required fields
@@ -60,7 +33,8 @@ with st.form("entrada_form"):
     info = st.text_area('Info. Complementar')
 
     # Add a form submit button to trigger the validation
-    if st.form_submit_button("Salvar"):
+    submit_button = st.form_submit_button("Salvar")
+    if submit_button:
         # Perform validation
         if not (nome_completo and tipo_veiculo and motivo and placa and status_veiculo and empresa_origem and estado_origem and cidade_origem and telefone and frete_retono):
             st.error("Por favor, preencha todos os campos obrigatórios antes de salvar.")
@@ -89,7 +63,7 @@ with st.form("entrada_form"):
                             )''')
 
             # Get the values from the fields
-            data_value = data.strftime("%Y-%m-%d")
+            data_value = date.today().strftime("%Y-%m-%d")
             estado_origem_value = estado_origem
             cidade_origem_value = cidade_origem
             empresa_origem_value = empresa_origem
