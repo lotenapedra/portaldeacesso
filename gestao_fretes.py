@@ -2,6 +2,8 @@ import streamlit as st
 import requests
 import sqlite3
 import pandas as pd
+
+st.set_page_config(page_title='Portal de Acesso',page_icon='clean.png')
 with open("master.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 #
