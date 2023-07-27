@@ -22,3 +22,11 @@
     color: #F9F9F9;
     border-color: #F9F9F9;
 }
+}
+header{
+    visibility: hidden;
+}
+
+footer{
+    visibility: hidden;
+}
