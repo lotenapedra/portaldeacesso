@@ -22,10 +22,8 @@ def tela_login():
         resultado = verifica_login(usuario, senha)
         if resultado:
             st.success("Login realizado com sucesso!")
-            # Utilize o "empty" markdown para limpar o conteúdo atual da página
-            st.markdown("", unsafe_allow_html=True)
-            # Cria o link para a página desejada após o login
-            st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/" target="_self">Acesso ao sistema</a>', unsafe_allow_html=True)
+            # Criando um link para a página desejada após o login
+            st.write("Acesso ao sistema: [Link](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)")
         else:
             st.error("Credenciais inválidas!")
 
