@@ -22,6 +22,12 @@ def tela_login():
         resultado = verifica_login(usuario, senha)
         if resultado:
             st.success("Login realizado com sucesso!")
+            # Hide the login interface and show the link to the system
+            st.markdown("""
+                <style>
+                #login-form { display: none; }
+                </style>
+            """, unsafe_allow_html=True)
             st.write("Por favor, feche esta aba de login manualmente.")
             # Criando um link para a página desejada após o login
             st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/" target="_blank">Acesso ao sistema</a>', unsafe_allow_html=True)
