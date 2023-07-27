@@ -8,7 +8,7 @@ from datetime import date
 with open("entrada.css") as f:
     st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
 
-
+st.title("Incluir Entrada")
 
 # data de entrada não pode ser alterada!
 data = st.date_input("Data Entrada", value=date.today(), disabled=True)
