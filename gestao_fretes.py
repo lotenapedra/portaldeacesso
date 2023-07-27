@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 import sqlite3
 import pandas as pd
-
+with open("master.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 #
 # Side bar menu
 
