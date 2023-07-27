@@ -129,7 +129,9 @@ if st.button("Salvar"):
 
 # ...
 
-# Função para validar se os campos obrigatórios estão preenchidos
+# ...
+
+# Function to validate if all required fields are filled
 def campos_obrigatorios_preenchidos():
     return (
         nome_completo
@@ -143,10 +145,10 @@ def campos_obrigatorios_preenchidos():
         and frete_retono
     )
 
-if st.button("Salvar"):
-    # Verifica se todos os campos obrigatórios foram preenchidos
+if st.button("Salvar", key="save_button"):
+    # Verifies if all required fields are filled
     if campos_obrigatorios_preenchidos():
-        # O código para inserção no banco de dados continua aqui...
+        # The code for database insertion continues here...
 
         # Commit the changes and close the connection
         conn.commit()
@@ -154,4 +156,3 @@ if st.button("Salvar"):
         st.success("Dados salvos com sucesso!")
     else:
         st.error("Por favor, preencha todos os campos obrigatórios antes de salvar.")
-
