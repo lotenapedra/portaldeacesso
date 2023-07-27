@@ -12,7 +12,7 @@ menu_option = st.sidebar.radio("Menu", ["Requisicao de Frete", "Requisição x E
 
 if menu_option == "Requisição de Frete":
     
-    exec(open("frete_request.py","visualizador_frete.py").read())
+    exec(open("frete_request.py").read())
 
 # Resto do seu código...
 if menu_option == "Requisição x Entradas":
