@@ -8,36 +8,23 @@ with open("entrada.css", encoding='utf-8') as f:
 
 # ... (Rest of your code remains the same)
 
-# Wrap your form elements with st.form context manager
-with st.form("entrada_form"):
-    # Add form validation for required fields
-    with st.columns(2):
-        col1, col2 = st.columns(2)
+# Function to handle form submission and validation
+def handle_submit():
+    # Get form values
+    nome_completo_value = nome_completo
+    tipo_veiculo_value = tipo_veiculo
+    motivo_value = motivo
+    placa_value = placa
+    status_veiculo_value = status_veiculo
+    empresa_origem_value = empresa_origem
+    estado_origem_value = estado_origem
+    cidade_origem_value = cidade_origem
+    telefone_value = telefone
+    frete_retorno_value = frete_retono
+    info_complementar_value = info
 
-        with col1:
-            nome_completo = st.text_input("Nome Completo:")
-            tipo_veiculo = st.selectbox('Tipo de Veiculo:', ["Truck-Side", "Carreta-Side", "Truck-Grade Baixa", "Carreta-Grade Baixa", "Carreta Graneleira", "Container","Bitrem","Bitruck"])
-            motivo = st.selectbox('Motivo:', ['Carregar', 'Descarregar'])
-            
-            placa = st.text_input('Placa do Veiculo:')
-            status_veiculo = st.selectbox('Status Veiculo',['Proprio','Terceiro','Transportadora'])
-
-        with col2:
-            empresa_origem = st.selectbox('Empresa Origem', ['Clean Plastic', 'Clean Poa', 'Clean Jundiai', 'Clean Bottle', 'Clean Fortal', 'Raposo Plasticos', 'Raposo Minas', 'Fornecedor PF', 'Outro'])
-            estado_origem = st.selectbox('Selecione o estado de origem', estados)
-            municipios_origem = obter_municipios(estado_origem)
-            cidade_origem = st.selectbox('Selecione a cidade de origem', municipios_origem)
-            telefone = st.text_input('Telefone')
-            frete_retono = st.selectbox('Possuem Frete Retorno?', ['Sim', 'Nao'])
-
-    info = st.text_area('Info. Complementar')
-
-    # Add a form submit button to trigger the validation
-    submit_button = st.form_submit_button(label="Salvar")
-    
-if submit_button:
     # Perform validation
-    if not (nome_completo and tipo_veiculo and motivo and placa and status_veiculo and empresa_origem and estado_origem and cidade_origem and telefone and frete_retono):
+    if not (nome_completo_value and tipo_veiculo_value and motivo_value and placa_value and status_veiculo_value and empresa_origem_value and estado_origem_value and cidade_origem_value and telefone_value and frete_retorno_value):
         st.error("Por favor, preencha todos os campos obrigatórios antes de salvar.")
     else:
         # Connect to the database or create a new one if it doesn't exist
@@ -112,3 +99,7 @@ if submit_button:
         conn.commit()
         conn.close()
         st.success("Dados salvos com sucesso!")
+
+# Call the handle_submit function when the button is clicked
+if st.button("Salvar"):
+    handle_submit()
