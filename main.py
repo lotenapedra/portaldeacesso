@@ -27,9 +27,20 @@ def tela_login():
         else:
             st.error("Credenciais inválidas!")
 
+# Tela intermediária para redirecionar após o login
+def tela_intermediaria():
+    if hasattr(st.session_state, 'is_logged_in') and st.session_state.is_logged_in:
+        # Utilize o "components.html" para criar um elemento HTML com redirecionamento
+        st.components.v1.html(
+            """
+            <script>
+                window.location.href = "https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/";
+            </script>
+            """
+        )
+
 # Executa a tela de login
 tela_login()
 
-# Mostra o link para o sistema após o login bem-sucedido
-if hasattr(st.session_state, 'is_logged_in') and st.session_state.is_logged_in:
-    st.write("Acesso ao sistema: [Link](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)")
+# Executa a tela intermediária
+tela_intermediaria()
