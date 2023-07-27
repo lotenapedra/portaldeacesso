@@ -53,15 +53,36 @@ with col2:
 
 info = st.text_area('Info. Complementar')
 
+def is_form_valid():
+    required_fields = [
+        data,
+        nome_completo,
+        tipo_veiculo,
+        motivo,
+        placa,
+        empresa_origem,
+        estado_origem,
+        cidade_origem,
+        telefone,
+        frete_retono,
+    ]
+
+    for field in required_fields:
+        if not field:
+            return False
+
+    return True
+
 if st.button("Salvar"):
-    # Connect to the database or create a new one if it doesn't exist
-    conn = sqlite3.connect('novo.db')
+    if is_form_valid():
+        # Connect to the database or create a new one if it doesn't exist
+        conn = sqlite3.connect('novo.db')
 
-    # Create a cursor object to execute SQL queries
-    cursor = conn.cursor()
+        # Create a cursor object to execute SQL queries
+        cursor = conn.cursor()
 
-    # Create the 'entrada' table if it doesn't exist
-    cursor.execute('''CREATE TABLE IF NOT EXISTS entrada (
+        # Create the 'entrada' table if it doesn't exist
+        cursor.execute('''CREATE TABLE IF NOT EXISTS entrada (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         data TEXT,
                         estado_origem TEXT,
@@ -77,22 +98,22 @@ if st.button("Salvar"):
                         info_complementar TEXT
                     )''')
 
-    # Get the values from the fields
-    data_value = data.strftime("%Y-%m-%d")
-    estado_origem_value = estado_origem
-    cidade_origem_value = cidade_origem
-    empresa_origem_value = empresa_origem
-    motivo_value = motivo
-    tipo_veiculo_value = tipo_veiculo
-    frete_retorno_value = frete_retono
-    status_veiculo_value = status_veiculo
-    placa_value = placa
-    nome_completo_value = nome_completo
-    telefone_value = telefone
-    info_complementar_value = info
+        # Get the values from the fields
+        data_value = data.strftime("%Y-%m-%d")
+        estado_origem_value = estado_origem
+        cidade_origem_value = cidade_origem
+        empresa_origem_value = empresa_origem
+        motivo_value = motivo
+        tipo_veiculo_value = tipo_veiculo
+        frete_retorno_value = frete_retono
+        status_veiculo_value = status_veiculo
+        placa_value = placa
+        nome_completo_value = nome_completo
+        telefone_value = telefone
+        info_complementar_value = info
 
-    # Insert the values into the 'entrada' table
-    cursor.execute('''INSERT INTO entrada (
+        # Insert the values into the 'entrada' table
+        cursor.execute('''INSERT INTO entrada (
                         data,
                         estado_origem,
                         cidade_origem,
@@ -122,8 +143,9 @@ if st.button("Salvar"):
                        info_complementar_value
                    ))
 
-    # Commit the changes and close the connection
-    conn.commit()
-    conn.close()
-    st.success("Dados salvos com sucesso!")
-
+        # Commit the changes and close the connection
+        conn.commit()
+        conn.close()
+        st.success("Dados salvos com sucesso!")
+    else:
+        st.warning("Preencha todos os campos antes de salvar.")
