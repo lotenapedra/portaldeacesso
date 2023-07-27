@@ -22,13 +22,16 @@ def tela_login():
         resultado = verifica_login(usuario, senha)
         if resultado:
             st.success("Login realizado com sucesso!")
-            # Utilize o "empty" markdown para limpar o conteúdo atual da página
-            st.markdown("", unsafe_allow_html=True)
-            # Redireciona para a página desejada após o login
-            st.redirect("https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/")
+            # Utilize o "components.html" para criar um elemento HTML com redirecionamento
+            st.components.v1.html(
+                """
+                <script>
+                    window.location.href = "https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/";
+                </script>
+                """
+            )
         else:
             st.error("Credenciais inválidas!")
 
 # Executa a tela de login
 tela_login()
-
