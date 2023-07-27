@@ -23,7 +23,7 @@ def tela_login():
         if resultado:
             st.success("Login realizado com sucesso!")
             # Provide a message to instruct the user to click the link and close the tab manually
-            st.write("Acesso ao sistema:")
+            
             st.markdown('[Acesso ao sistema](https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/)', unsafe_allow_html=True)
         else:
             st.error("Credenciais inválidas!")
