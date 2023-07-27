@@ -1,6 +1,5 @@
 import sqlite3
 import streamlit as st
-import subprocess
 
 with open("master.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -24,7 +23,7 @@ def tela_login():
         if resultado:
             st.success("Login realizado com sucesso!")
             # Criando um link para a página desejada após o login
-            st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/" target="_blank" onclick="window.open(\'https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/\'); window.close();">Acesso ao sistema</a>', unsafe_allow_html=True)
+            st.markdown('<a href="https://appdeaceapp-ufxe2nf7esptswcoubjwv6.streamlit.app/" target="_blank">Acesso ao sistema</a>', unsafe_allow_html=True)
         else:
             st.error("Credenciais inválidas!")
 
