@@ -15,7 +15,7 @@ def verifica_login(usuario, senha):
 
 # Tela de login
 def tela_login():
-    st.title("Portal de Acesso")
+    st.title("Portal de Acesso,page_icon='clean.png")
     usuario = st.text_input("Usuário")
     senha = st.text_input("Senha", type="password")
     if st.button("Login"):
