@@ -7,10 +7,10 @@ import pandas as pd
 # Side bar menu
 
 
-menu_option = st.sidebar.radio("Menu", ["Requisição de Frete", "Requisição x Entradas"])
+menu_option = st.sidebar.radio("Menu", ["Solicitar Embarque", "Requisição x Entradas"])
 
 
-if menu_option == "Requisição de Frete":
+if menu_option == "Solicitar Embarque":
     
     exec(open("frete_request.py").read())
 
