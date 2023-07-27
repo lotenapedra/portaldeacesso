@@ -3,6 +3,13 @@ import csv
 import streamlit as st
 from datetime import date
 
+#arquivo css para estilização
+
+with open("entrada.css") as f:
+    st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
+
+
+
 # data de entrada não pode ser alterada!
 data = st.date_input("Data Entrada", value=date.today(), disabled=True)
 Local_Entrada = st.selectbox('Local de entrada', ['Clean Plastic', 'Clean Poa', 'Clean Jundiai', 'Clean Bottle', 'Clean Fortal', 'Raposo Plasticos', 'Raposo Minas', 'Fornecedor PF', 'Outro'])
