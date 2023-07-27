@@ -2,13 +2,13 @@ import streamlit as st
 import requests
 import sqlite3
 import pandas as pd
-st.write("Incluir Entrada",widht=75)
+
 st.set_page_config(page_title='Portal de Acesso',page_icon='clean.png')
 
 with open("style.css") as f:
     st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
 
-
+st.title("Incluir Entrada",width=75)
 
 #
 # Side bar menu
