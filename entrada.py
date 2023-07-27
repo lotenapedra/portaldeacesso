@@ -9,7 +9,7 @@ with open("entrada.css", encoding='utf-8') as f:
 # ... (Rest of your code remains the same)
 
 # Wrap your form elements with st.form context manager
-with st.form("entrada_form"):
+with st.form("my_form"):
     # Add form validation for required fields
     with st.columns(2):
         col1, col2 = st.columns(2)
@@ -33,8 +33,7 @@ with st.form("entrada_form"):
     info = st.text_area('Info. Complementar')
 
     # Add a form submit button to trigger the validation
-    submit_button = st.form_submit_button("Salvar")
-    if submit_button:
+    if st.form_submit_button(label="Salvar"):
         # Perform validation
         if not (nome_completo and tipo_veiculo and motivo and placa and status_veiculo and empresa_origem and estado_origem and cidade_origem and telefone and frete_retono):
             st.error("Por favor, preencha todos os campos obrigatórios antes de salvar.")
