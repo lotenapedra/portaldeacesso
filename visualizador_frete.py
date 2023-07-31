@@ -1,3 +1,4 @@
+st.set_page_config(page_title='PORTAL EASY',page_icon='clean.png')
 import streamlit as st
 import sqlite3
 from datetime import datetime
