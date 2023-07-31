@@ -1,8 +1,7 @@
-
 import streamlit as st
 import sqlite3
 from datetime import datetime
-st.set_page_config(page_title='PORTAL EASY',page_icon='clean.png')
+
 st.title('Gestao Entradas')
 with open("visualizacao.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
