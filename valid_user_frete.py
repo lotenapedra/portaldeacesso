@@ -1,9 +1,11 @@
 import sqlite3
 import streamlit as st
-st.set_page_config(page_title='Portal de Acesso',page_icon='clean.png')
+
 with open("master.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+
+st.set_page_config(page_title='PORTAL EASY',page_icon='clean.png')
 # Função para verificar as credenciais de login
 def verifica_login(usuario, senha):
     conn = sqlite3.connect('novo.db')
