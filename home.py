@@ -3,7 +3,7 @@ import requests
 import sqlite3
 import pandas as pd
 
-st.set_page_config(page_title='PORTAL EASY', page_icon='clean.png')
+
 
 
 
