@@ -1,4 +1,3 @@
-st.set_page_config(page_title='PORTAL EASY',page_icon='clean.png')
 
 import streamlit as st
 import requests
@@ -10,6 +9,7 @@ import pandas as pd
 with open("style.css") as f:
     st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
 
+st.set_page_config(page_title='PORTAL EASY',page_icon='clean.png')
 
 
 # Side bar menu
