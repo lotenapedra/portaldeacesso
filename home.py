@@ -16,8 +16,7 @@ menu_option = st.sidebar.radio("Menu", ["Entrada", "Gestão de Entrada","Excluir
 if menu_option == "Entrada":
     exec(open("entrada.py").read())
 
-if menu_option == "Cadastros":
-    st.write("")
+
 # Resto do seu código...
 if menu_option == "Excluir Entrada":
     exec(open("editar_excluir.py").read())
