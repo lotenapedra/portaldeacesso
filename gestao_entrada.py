@@ -1,17 +1,31 @@
 import streamlit as st
 import sqlite3
 from datetime import datetime
+import csv
 
 st.title('Gestao Entradas')
 with open("visualizacao.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Função para atualizar o status no banco de dados
+# Função para atualizar o status no banco de dados e recriar o arquivo CSV
 def atualizar_status(id, novo_status):
     conn = sqlite3.connect('novo.db')
     cursor = conn.cursor()
     cursor.execute("UPDATE entrada SET Status=? WHERE ID=?", (novo_status, id))
     conn.commit()
+    
+    # Atualizar o arquivo CSV automaticamente
+    csv_data = []
+    cursor.execute("SELECT * FROM entrada")
+    data = cursor.fetchall()
+    for row in data:
+        csv_data.append(row)
+    
+    with open(csv_filename, 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(column_names)  # Escrever cabeçalho
+        csv_writer.writerows(csv_data)  # Escrever dados
+    
     conn.close()
 
 # Conectar ao banco de dados
