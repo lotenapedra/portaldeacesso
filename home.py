@@ -14,7 +14,7 @@ with open("style.css") as f:
 
 
 # Side bar menu
-menu_option = st.sidebar.radio("Menu", ["Entrada", "Gestão de Entrada","Excluir Entrada","Solicitação de Embarque","Criar Usuário"])
+menu_option = st.sidebar.radio("Menu", ["Entrada", "Gestão de Entrada","Excluir Entrada"])
 
 if menu_option == "Entrada":
     exec(open("entrada.py").read())
@@ -27,13 +27,5 @@ if menu_option == "Excluir Entrada":
 if menu_option == "Gestão de Entrada":
     exec(open("gestao_entrada.py").read())
     
-if menu_option == "Solicitação de Embarque":
-    exec(open("valid_user_frete.py").read())
-    
-if menu_option == "Criar Usuário":
-    exec(open("loginadm.py").read())
-        
 
-if menu_option == "Cadastros":
-    st.write("")
     
