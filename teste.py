@@ -12,19 +12,20 @@ def atualizar_status(selected_id, novo_status):
     conn.commit()
     conn.close()
 
-    # Atualizar também o arquivo CSV
-    with open('dados_exportados.csv', 'r', newline='') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        data = list(csv_reader)
-
-    for row in data:
+    # Atualizar o arquivo CSV
+    for row in filtered_data:
         if row[0] == selected_id:
             row[column_names.index("Status")] = novo_status
+    atualizar_csv(filtered_data)
 
+# Função para atualizar o arquivo CSV
+def atualizar_csv(data):
     with open('dados_exportados.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(column_names)
         csv_writer.writerows(data)
 
+# Restante do seu código
 st.title('Gestao Entradas')
 with open("visualizacao.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
