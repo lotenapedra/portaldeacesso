@@ -197,7 +197,7 @@ if st.button("Salvar"):
         # Commit the changes and close the connection
         conn.commit()
         conn.close()
-        st.success("Dados salvos com sucesso!")
+        
 
         # Call the function to save the data to the remote GitHub CSV file
         data_row = [
@@ -207,7 +207,7 @@ if st.button("Salvar"):
         ]
         save_to_github_csv(data_row)
     else:
-        st.warning("Preencha todos os campos antes de salvar.")
+       
 
 
 
