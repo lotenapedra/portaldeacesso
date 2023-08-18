@@ -63,6 +63,41 @@ for row in filtered_data:
     table += "</tr>"
 table += "</tbody></table>"
 
+#####
+import streamlit as st
+import sqlite3
+from datetime import datetime
+
+# Resto do seu código...
+
+if st.button('Atualizar'):
+    atualizar_status(selected_id, novo_status)
+
+# Create an HTML table from the filtered_data
+table = "<style>tbody tr:nth-of-type(odd) {background-color: #f5f5f5;}</style>"
+table += "<table><thead><tr>"
+for col_name in column_names:
+    table += f"<th>{col_name}</th>"
+table += "</tr></thead><tbody>"
+
+for row in filtered_data:
+    if row[column_names.index("Status")] == "Operacao Finalizada":
+        table += "<tr style='background-color: green; color: white;'>"
+    elif row[column_names.index("Status")] == "Liberar Entrada":
+        table += "<tr style='background-color: yellow;'>"
+    else:
+        table += "<tr>"
+    for value in row:
+        table += f"<td>{value}</td>"
+    table += "</tr>"
+table += "</tbody></table>"
+
+# Display the table as HTML in Streamlit
+st.write(table, unsafe_allow_html=True)
+
+
+####
+
 
 
 
