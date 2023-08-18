@@ -177,7 +177,7 @@ def save_to_github_csv(data_row):
     
     # Update the remote CSV file using the GitHub API
     headers = {
-        "Authorization": "Bearer YOUR_GITHUB_TOKEN",
+        "Authorization": "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",
         "Content-Type": "application/vnd.github.v3.raw"
     }
     
