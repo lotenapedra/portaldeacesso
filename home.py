@@ -14,7 +14,7 @@ with open("style.css") as f:
 
 
 # Side bar menu
-menu_option = st.sidebar.radio("Menu", ["Entrada", "Gestão de Entrada","Excluir Entrada"])
+menu_option = st.sidebar.radio("Menu", ["Entrada", "Gestão de Entrada","Excluir Entrada","teste"])
 
 if menu_option == "Entrada":
     exec(open("entrada.py").read())
@@ -26,6 +26,8 @@ if menu_option == "Excluir Entrada":
     
 if menu_option == "Gestão de Entrada":
     exec(open("gestao_entrada.py").read())
+if menu_option == "teste":
+    exec(open("teste.py").read())
     
 
     
