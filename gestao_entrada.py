@@ -63,15 +63,7 @@ for row in filtered_data:
     table += "</tr>"
 table += "</tbody></table>"
 
-let
-    fonte = Sql.Database("CaminhoParaPastaDoSeuBancoDeDados", "novo.db"),
-    tabelaEntrada = fonte{[Schema="",Item="entrada"]}[Data],
-    #"Status Filtrados" = Table.SelectRows(tabelaEntrada, each [Status] = "Operacao Finalizada"),
-    #"Coluna Personalizada Adicionada" = Table.AddColumn(#"Status Filtrados", "CorPersonalizada", each if [Status] = "Operacao Finalizada" then "green" else if [Status] = "Liberar Entrada" then "yellow" else ""),
-    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Personalizada Adicionada",{"CorPersonalizada"}),
-    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Removidas",{{"ID", "ID"}}) // Renomeie as colunas conforme necessário
-in
-    #"Colunas Renomeadas"
+
 
 
 st.write(table, unsafe_allow_html=True)
