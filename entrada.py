@@ -159,55 +159,7 @@ if st.button("Salvar"):
     else:
         st.warning("Preencha todos os campos antes de salvar.")
 
-import requests
-import csv
 
-def save_to_github_csv(data_row):
-    csv_url = "https://raw.githubusercontent.com/lotenapedra/portaldeacesso/main/dados_exportados.csv"
-    
-    response = requests.get(csv_url)
-    response.raise_for_status()
-    
-    # Convert the content into a list of lists (rows)
-    existing_data = [line.split(',') for line in response.text.strip().split('\n')]
-    
-    existing_data.append(data_row)
-    
-    # Convert the updated data back into CSV format
-    updated_csv_content = "\n".join([",".join(row) for row in existing_data])
-    
-    # Update the remote CSV file using the GitHub API
-    headers = {
-        "Authorization": "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",
-        "Content-Type": "application/vnd.github.v3.raw"
-    }
-    
-    response = requests.put(csv_url, data=updated_csv_content, headers=headers)
-    response.raise_for_status()
-
-# ... (rest of your code)
-
-if st.button("Salvar"):
-    if is_form_valid():
-        # Connect to the database or create a new one if it doesn't exist
-        conn = sqlite3.connect('novo.db')
-
-        # ... (existing code)
-
-        # Commit the changes and close the connection
-        conn.commit()
-        conn.close()
-        
-
-        # Call the function to save the data to the remote GitHub CSV file
-        data_row = [
-            data_value, estado_origem_value, cidade_origem_value, empresa_origem_value, 
-            motivo_value, tipo_veiculo_value, frete_retorno_value, status_veiculo_value, 
-            placa_value, nome_completo_value, telefone_value, info_complementar_value
-        ]
-        save_to_github_csv(data_row)
-    else:
-       
 
 
 
