@@ -184,14 +184,7 @@ def save_to_github_csv(data_row):
     response = requests.put(csv_url, data=updated_csv_content, headers=headers)
     response.raise_for_status()
 if is_form_valid():
-    # Connect to the database or create a new one if it doesn't exist
-    conn = sqlite3.connect('novo.db')
 
-    # ... (existing code)
-
-    # Commit the changes and close the connection
-    conn.commit()
-    conn.close()
     
     # Call the function to save the data to the remote GitHub CSV file
     data_row = [
