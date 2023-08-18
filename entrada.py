@@ -9,6 +9,59 @@ with open("entrada.css") as f:
     st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
 
 st.title("Incluir Entrada")
+#csv teste implementação
+
+import sqlite3
+import csv
+import streamlit as st
+from datetime import date
+import os
+
+# ... (existing code)
+
+if st.button("Salvar"):
+    if is_form_valid():
+        # Connect to the database or create a new one if it doesn't exist
+        conn = sqlite3.connect('novo.db')
+
+        # ... (existing code)
+
+        # Commit the changes and close the connection
+        conn.commit()
+        conn.close()
+        st.success("Dados salvos com sucesso!")
+
+        # Append the data to the CSV file
+        csv_filename = 'dados_exportados.csv'
+        csv_header = [
+            'Data', 'Estado Origem', 'Cidade Origem', 'Empresa Origem', 'Motivo', 
+            'Tipo Veiculo', 'Frete Retorno', 'Status Veiculo', 'Placa', 'Nome Completo', 
+            'Telefone', 'Info Complementar'
+        ]
+        csv_row = [
+            data_value, estado_origem_value, cidade_origem_value, empresa_origem_value, 
+            motivo_value, tipo_veiculo_value, frete_retorno_value, status_veiculo_value, 
+            placa_value, nome_completo_value, telefone_value, info_complementar_value
+        ]
+
+        # Check if the CSV file already exists, and if not, write the header
+        if not os.path.exists(csv_filename):
+            with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+                csv_writer = csv.writer(csvfile)
+                csv_writer.writerow(csv_header)
+
+        # Append the data to the CSV file
+        with open(csv_filename, 'a', newline='', encoding='utf-8') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            csv_writer.writerow(csv_row)
+    else:
+        st.warning("Preencha todos os campos antes de salvar.")
+
+
+
+#####################################################
+
+
 
 # data de entrada não pode ser alterada!
 data = st.date_input("Data Entrada", value=date.today(), disabled=True)
