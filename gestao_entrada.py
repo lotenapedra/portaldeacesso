@@ -62,7 +62,7 @@ for row in filtered_data:
         table += f"<td>{value}</td>"
     table += "</tr>"
 table += "</tbody></table>"
-
+############################################################################
 import streamlit as st
 import sqlite3
 import pandas as pd
@@ -87,6 +87,13 @@ novo_status = st.selectbox("Selecione o novo status:", ['Liberar Entrada', 'Desc
 if st.button('Atualizar'):
     atualizar_status(selected_id, novo_status)
 
+import base64
+
+def get_csv_url(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    csv_url = f"data:text/csv;charset=utf-8;base64,{b64}"
+    return csv_url
 
 
 ####
