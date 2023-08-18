@@ -158,3 +158,25 @@ if st.button("Salvar"):
         st.success("Dados salvos com sucesso!")
     else:
         st.warning("Preencha todos os campos antes de salvar.")
+
+def save_to_csv(data_row):
+    csv_filename = 'dados_exportados.csv'
+    csv_header = [
+        'Data', 'Estado Origem', 'Cidade Origem', 'Empresa Origem', 'Motivo', 
+        'Tipo Veiculo', 'Frete Retorno', 'Status Veiculo', 'Placa', 'Nome Completo', 
+        'Telefone', 'Info Complementar'
+    ]
+
+    # Check if the CSV file already exists, and if not, write the header
+    if not os.path.exists(csv_filename):
+        with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            csv_writer.writerow(csv_header)
+
+    # Append the data to the CSV file
+    with open(csv_filename, 'a', newline='', encoding='utf-8') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        csv_writer.writerow(data_row)
+
+
+
