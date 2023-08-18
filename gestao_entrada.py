@@ -63,16 +63,12 @@ for row in filtered_data:
     table += "</tr>"
 table += "</tbody></table>"
 
-#####
 import streamlit as st
 import sqlite3
 import pandas as pd
 from datetime import datetime
 
 # Resto do seu código...
-
-if st.button('Atualizar'):
-    atualizar_status(selected_id, novo_status)
 
 # Create a DataFrame from the filtered_data
 df = pd.DataFrame(filtered_data, columns=column_names)
@@ -83,9 +79,14 @@ st.write(df)
 # Allow user to generate a CSV URL
 csv_url = get_csv_url(df)
 st.write("CSV URL:", csv_url)
-def get_csv_url(df):
-    csv = df.to_csv(index=False)
-    return f"data:text/csv;charset=utf-8,{csv}"
+
+# Move the "Atualizar" button code here
+selected_id = st.selectbox("Para atualizar selecione o ID:", [str(row[0]) for row in filtered_data])
+novo_status = st.selectbox("Selecione o novo status:", ['Liberar Entrada', 'Descarregando', 'Carregando', 'Operacao Finalizada'])
+
+if st.button('Atualizar'):
+    atualizar_status(selected_id, novo_status)
+
 
 
 ####
