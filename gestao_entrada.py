@@ -78,3 +78,29 @@ new_status = st.selectbox("Selecione o novo status:", ["Liberar Entrada", "Desca
 if st.button('Atualizar Status'):
     atualizar_status(selected_id_update, new_status)
     st.success(f"Status atualizado com sucesso para {new_status}")
+
+
+#### estilizar tabela
+
+def get_row_style(status):
+    if status == 'Descarregando':
+        return 'background-color: blue; color: white;'
+    else:
+        return ''
+
+# Em seguida, você pode aplicar esse estilo na criação da tabela HTML:
+table = "<style>tbody tr:nth-of-type(odd) {background-color: #f5f5f5;}</style>"
+table += "<table><thead><tr>"
+for col_name in column_names:
+    table += f"<th>{col_name}</th>"
+table += "</tr></thead><tbody>"
+
+# Exibir os dados na tabela com o estilo condicional
+for row in filtered_data:
+    row_style = get_row_style(row[column_names.index('Status')])  # Obtém o estilo com base no status
+    table += f"<tr style='{row_style}'>"
+    for value in row:
+        table += f"<td>{value}</td>"
+    table += "</tr>"
+table += "</tbody></table>"
+
