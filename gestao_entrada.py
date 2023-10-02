@@ -1,105 +1,80 @@
 import streamlit as st
 import sqlite3
-from datetime import datetime
+from datetime import date, timedelta
 
-# Function to update the status in the database
-def atualizar_status(selected_id, novo_status):
+st.title('Status de entradas')
+
+# Função para inativar um registro no banco de dados
+def inativar_registro(id):
     conn = sqlite3.connect('novo.db')
     cursor = conn.cursor()
-    update_query = "UPDATE entrada SET Status = ? WHERE ID = ?"
-    cursor.execute(update_query, (novo_status, selected_id))
+    cursor.execute("UPDATE entrada SET Status='Inativo' WHERE ID=?", (id,))
     conn.commit()
     conn.close()
 
-st.title('Gestao Entradas')
-with open("visualizacao.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+# Função para atualizar o status de um registro no banco de dados
+def atualizar_status(id, novo_status):
+    conn = sqlite3.connect('novo.db')
+    cursor = conn.cursor()
+    cursor.execute("UPDATE entrada SET Status=? WHERE ID=?", (novo_status, id))
+    conn.commit()
+    conn.close()
 
+# Conectar ao banco de dados
 conn = sqlite3.connect('novo.db')
 cursor = conn.cursor()
-cursor.execute("SELECT * FROM entrada")
+
+# Criar componentes de seleção de data
+start_date = st.date_input("Selecione a data de início:", date.today() - timedelta(days=30))
+end_date = st.date_input("Selecione a data de término:", date.today())
+
+# Executar a consulta SQL para obter os dados da tabela 'entrada' dentro do intervalo de datas selecionado
+cursor.execute("SELECT * FROM entrada WHERE DATE(data) >= ? AND DATE(data) <= ?", (start_date, end_date))
 data = cursor.fetchall()
+
+# Obter os nomes das colunas
 column_names = [description[0] for description in cursor.description]
-conn.close()
 
-unique_statuses = list(set([row[column_names.index("Status")] for row in data]))
-selected_status = st.selectbox("Filtrar por status:", ["Todos"] + unique_statuses)
-filtered_data = data
-if selected_status != "Todos":
-    filtered_data = [row for row in filtered_data if row[column_names.index("Status")] == selected_status]
+# Filtros para Empresa de origem, Motivo e Local de entrada
+local_entrada_filter = st.selectbox("Empresa de origem:", ["Todos"] + list(set(row[4] for row in data)))
+motivo_filter = st.selectbox("Motivo da entrada:", ["Todos"] + list(set(row[5] for row in data)))
+local_entrada_filter_2 = st.selectbox("Local de entrada:", ["Todos"] + list(set(row[15] for row in data)))
 
-unique_motivo = list(set([row[column_names.index("motivo")] for row in data]))
-selected_motivo = st.selectbox("Filtrar por Motivo:", ["Todos"] + unique_motivo)
-if selected_motivo != "Todos":
-    filtered_data = [row for row in filtered_data if row[column_names.index("motivo")] == selected_motivo]
+# Aplicar filtros
+filtered_data = []
+for row in data:
+    if (local_entrada_filter == "Todos" or row[4] == local_entrada_filter) and \
+       (motivo_filter == "Todos" or row[5] == motivo_filter) and \
+       (local_entrada_filter_2 == "Todos" or (len(row) > 15 and row[15] == local_entrada_filter_2)):
+        filtered_data.append(row)
 
-data_atual = datetime.now().strftime('%Y-%m-%d')
-filtered_data = [row for row in filtered_data if row[column_names.index("data")] == data_atual]
-
-col1, col2 = st.columns(2)
-with col1:
-    selected_id = st.selectbox("Para atualizar selecione o ID:", [str(row[0]) for row in filtered_data])
-with col2:
-    novo_status = st.selectbox("Selecione o novo status:", ['Liberar Entrada', 'Descarregando', 'Carregando', 'Operacao Finalizada'])
-
-if st.button('Atualizar'):
-    atualizar_status(selected_id, novo_status)
-
+# Criar uma tabela no Streamlit
 table = "<style>tbody tr:nth-of-type(odd) {background-color: #f5f5f5;}</style>"
 table += "<table><thead><tr>"
 for col_name in column_names:
     table += f"<th>{col_name}</th>"
 table += "</tr></thead><tbody>"
 
+# Exibir os dados na tabela
 for row in filtered_data:
-    if row[column_names.index("Status")] == "Operacao Finalizada":
-        table += "<tr style='background-color: green; color: white;'>"
-    elif row[column_names.index("Status")] == "Liberar Entrada":
-        table += "<tr style='background-color: yellow;'>"
-    else:
-        table += "<tr>"
+    table += "<tr>"
     for value in row:
         table += f"<td>{value}</td>"
     table += "</tr>"
 table += "</tbody></table>"
-############################################################################
-import streamlit as st
-import sqlite3
-import pandas as pd
-from datetime import datetime
 
-# Resto do seu código...
-
-# Create a DataFrame from the filtered_data
-df = pd.DataFrame(filtered_data, columns=column_names)
-
-# Display the DataFrame in Streamlit
-st.write(df)
-
-# Allow user to generate a CSV URL
-csv_url = get_csv_url(df)
-st.write("CSV URL:", csv_url)
-
-# Move the "Atualizar" button code here
-selected_id = st.selectbox("Para atualizar selecione o ID:", [str(row[0]) for row in filtered_data])
-novo_status = st.selectbox("Selecione o novo status:", ['Liberar Entrada', 'Descarregando', 'Carregando', 'Operacao Finalizada'])
-
-if st.button('Atualizar'):
-    atualizar_status(selected_id, novo_status)
-
-import base64
-
-def get_csv_url(df):
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    csv_url = f"data:text/csv;charset=utf-8;base64,{b64}"
-    return csv_url
-
-
-####
-
-
-
-
+# Exibir a tabela no Streamlit
 st.write(table, unsafe_allow_html=True)
 
+# Seletor de ID para inativar
+selected_id = st.selectbox("Para inativar, selecione o ID:", [str(row[0]) for row in filtered_data])
+if st.button('Inativar'):
+    inativar_registro(selected_id)
+
+# Seletor de ID e status para atualizar
+selected_id_update = st.selectbox("Selecione o ID para atualizar o status:", [str(row[0]) for row in filtered_data])
+new_status = st.selectbox("Selecione o novo status:", ["Liberar Entrada", "Descarregando", "Carregando", "Carregamento Finalizado", "Descarregamento Finalizado"])
+
+if st.button('Atualizar Status'):
+    atualizar_status(selected_id_update, new_status)
+    st.success(f"Status atualizado com sucesso para {new_status}")
